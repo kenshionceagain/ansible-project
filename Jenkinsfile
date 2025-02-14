@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/votre-utilisateur/ansible-project.git'
+                git 'https://github.com/kenshionceagain/ansible-project.git'
             }
         }
 
