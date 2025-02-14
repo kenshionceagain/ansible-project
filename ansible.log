@@ -1,0 +1,19 @@
+2025-02-14 15:31:22,192 p=4312 u=root n=ansible | PLAY [Install Docker services] **************************************************************************************************************************************************************************************************************
+2025-02-14 15:31:22,201 p=4312 u=root n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************
+2025-02-14 15:31:22,201 p=4312 u=root n=ansible | Friday 14 February 2025  15:31:22 +0100 (0:00:00.010)       0:00:00.010 ******* 
+2025-02-14 15:31:25,324 p=4312 u=root n=ansible | fatal: [server3]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.1.12 port 22: No route to host", "unreachable": true}
+2025-02-14 15:31:45,782 p=4312 u=root n=ansible |  [ERROR]: User interrupted execution
+
+2025-02-14 15:34:18,504 p=4337 u=root n=ansible | PLAY [Install Docker services] **************************************************************************************************************************************************************************************************************
+2025-02-14 15:34:18,511 p=4337 u=root n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************
+2025-02-14 15:34:18,512 p=4337 u=root n=ansible | Friday 14 February 2025  15:34:18 +0100 (0:00:00.009)       0:00:00.009 ******* 
+2025-02-14 15:34:48,588 p=4337 u=root n=ansible | fatal: [server1]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.1.16 port 22: Connection timed out", "unreachable": true}
+2025-02-14 15:34:48,595 p=4337 u=root n=ansible | fatal: [server2]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.1.17 port 22: Connection timed out", "unreachable": true}
+2025-02-14 15:34:48,603 p=4337 u=root n=ansible | fatal: [server3]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.1.15 port 22: Connection timed out", "unreachable": true}
+2025-02-14 15:34:48,604 p=4337 u=root n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************
+2025-02-14 15:34:48,604 p=4337 u=root n=ansible | server1                    : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-14 15:34:48,604 p=4337 u=root n=ansible | server2                    : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-14 15:34:48,604 p=4337 u=root n=ansible | server3                    : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-14 15:34:48,604 p=4337 u=root n=ansible | Friday 14 February 2025  15:34:48 +0100 (0:00:30.092)       0:00:30.102 ******* 
+2025-02-14 15:34:48,605 p=4337 u=root n=ansible | =============================================================================== 
+2025-02-14 15:34:48,605 p=4337 u=root n=ansible | Gathering Facts --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 30.09s

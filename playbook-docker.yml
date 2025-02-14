@@ -30,7 +30,7 @@
         name: wordpress
         image: wordpress:latest
         ports:
-          - "8080:80"
+          - "8010:80"
         restart_policy: always
 
     - name: Run Vaultwarden container
@@ -38,7 +38,7 @@
         name: vaultwarden
         image: vaultwarden/server:latest
         ports:
-          - "8000:80"
+          - "8050:80"
         restart_policy: always
 
     - name: Run Portainer container
