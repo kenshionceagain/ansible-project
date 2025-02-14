@@ -1,32 +1,31 @@
 pipeline {
     agent any
-
+    parameters {
+        string(name: 'SERVER1', defaultValue: '10.0.1.10')
+        string(name: 'SERVER2', defaultValue: '10.0.1.11')
+    }
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/kenshionceagain/ansible-project.git'
-            }
-        }
-
-        stage('Execute Ansible Playbook') {
+        stage('Setup') {
             steps {
                 script {
-                    // Assurez-vous qu'Ansible est installé sur l'agent Jenkins
-                    sh 'ansible --version'
+                    def inventory = """
+                    [webservers]
+                    ${params.SERVER1}
 
-                    // Exécutez le playbook Ansible
-                    sh 'ansible-playbook -i inventory playbook.yml'
+                    [dbservers]
+                    ${params.SERVER2}
+                    """
+                    writeFile file: 'inventory.ini', text: inventory
                 }
             }
         }
-    }
-
-    post {
-        success {
-            echo 'Le playbook Ansible a été exécuté avec succès.'
-        }
-        failure {
-            echo 'L\'exécution du playbook Ansible a échoué.'
+        stage('Deploy') {
+            steps {
+                ansiblePlaybook(
+                    playbook: 'playbook-docker.yml',
+                    inventory: 'inventory.ini'
+                )
+            }
         }
     }
 }

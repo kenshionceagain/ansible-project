@@ -1,45 +1,50 @@
-- name: premier playbook
-  hosts: docker-servers
-  become: yes  # Exécuter en root
+---
+- name: Install Docker services
+  hosts: all
+  become: true
 
   tasks:
-    - name: Mettre à jour la liste des paquets
+    - name: Install Docker
       apt:
-        update_cache: yes
-        upgrade: yes
-    - name: Installer des dépandances
-      apt:
-        name: "{{ packages }}"
+        name: docker.io
         state: present
-      vars:
-        packages:
-        - docker
-        - docker-compose
-    - name: Activer et démarrer Docker
-      systemd:
+      when: ansible_facts.os.family == "Debian"
+
+    - name: Start Docker service
+      service:
         name: docker
-        enabled: yes
         state: started
-    - name: installation portainer
+        enabled: true
+
+    - name: Run Nginx Proxy Manager container
+      docker_container:
+        name: nginx-proxy-manager
+        image: jc21/nginx-proxy-manager:latest
+        ports:
+          - "80:80"
+          - "443:443"
+        restart_policy: always
+
+    - name: Run WordPress container
+      docker_container:
+        name: wordpress
+        image: wordpress:latest
+        ports:
+          - "8080:80"
+        restart_policy: always
+
+    - name: Run Vaultwarden container
+      docker_container:
+        name: vaultwarden
+        image: vaultwarden/server:latest
+        ports:
+          - "8000:80"
+        restart_policy: always
+
+    - name: Run Portainer container
       docker_container:
         name: portainer
-        image: portainer/portainer-ce:2.21.5
-        restart_policy: unless-stopped
-        volumes:
-          - portainer_data:/data
-          - /var/run/docker.sock:/var/run/docker.sock
+        image: portainer/portainer-ce:latest
         ports:
-          - 8000:8000
-          - 9443:9443
-    - name: installation NGINX PROXY MANAGER
-      docker_container:
-        name: npm
-        image: jc21/nginx-proxy-manager:latest
-        restart_policy: unless-stopped
-        volumes:
-          - ./data:/data
-          - ./letsencrypt:/etc/letsencrypt
-        ports:
-          - 80:80
-          - 81:81
-          - 443:443
+          - "9000:9000"
+        restart_policy: always
